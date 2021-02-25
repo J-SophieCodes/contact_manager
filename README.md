@@ -1,0 +1,1 @@
+An Ajax app that dynamically filters contacts based on tags. Built with Node.js, Express, jQuery, and Handlebars.
