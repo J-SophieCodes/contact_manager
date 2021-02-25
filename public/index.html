@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="stylesheets/style.css" />
+  <script src="/javascripts/jquery.js"></script>
+  <script src="/javascripts/handlebars.js"></script>
+  <script type="module" src="javascripts/app.js"></script>
+</head>
+<body>
+  <header>
+    <div class="column">
+      <h1>Contact Manager</h1>
+      <!-- <p>Using Backbone.js, Localstorage, RequireJS, Handlebar and Bootstrap</p> -->
+    </div>
+  </header>
+
+  <main></main>
+
+  <footer>
+    <!-- <div>
+      <p>Developed by
+        <a href="http://www.devsaran.com/">Devsaran.com</a>
+        and 
+        <a href="http://www.239listing.com/">239 Listing Real Estate</a>.
+      </p>
+    </div> -->
+  </footer>
+
+  <script type="text/x-handlebars" id="homepage">
+    <div id="homepage" class="column unpad">
+      {{> banner}}
+      {{> contactList}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="banner" class="partial">
+    <div id="banner" class="column container">
+      <div class="row unpad">
+        <div class="row-item">{{> addBtn}}</div>
+        <div class="row-item">
+          <input id="searchbar" class="half" placeholder="search by name">
+        </div>
+      </div>
+      <div class="column">
+        <ul id="tagList">
+          {{#each allTags}}
+          {{> list_tag}}
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="list_tag" class="partial">
+    <li><a href="" class="button tagBtn">#{{this}}</a></li>
+  </script>
+
+  <script type="text/x-handlebars" id="contactList" class="partial">
+    <div id="contacts">
+      {{#if contacts}}
+      {{> list_contacts}}
+      {{else}}
+      {{> no_contacts}}
+      {{/if}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="addBtn" class="partial">
+    <a href="" class="addBtn button">Add Contact</a>
+  </script>
+
+  <script type="text/x-handlebars" id="no_contacts" class="partial">
+    <div class="container column" id="message">
+      <h3>There is no contacts{{message}}.</h3>
+      {{#unless message}}
+      {{> addBtn}}
+      {{/unless}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="list_contacts" class="partial">
+    {{#each contacts}}
+    {{> contact_card}}
+    {{/each}}
+  </script>
+
+  <script type="text/x-handlebars" id="contact_card" class="partial">
+    <div class="contact-card column" name="{{full_name}}" id="{{id}}">
+      <h3>{{full_name}}</h3>
+      <dl class="info">
+        <dt><strong>Phone Number:</strong></dt>
+        <dd>{{phone_number}}</dd>
+        <dt><strong>Email:</strong></dt>
+        <dd>{{email}}</dd>
+        <dt><strong>Tags:</strong></dt>
+        <dd class="tags">{{tags}}</dd>
+      </dl>
+      <div class="row unpad unpad">
+        <a class="editBtn button">Edit</a>
+        <a class="deleteBtn button">Delete</a>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="edit_contact">
+    <div id="edit-contact" class="column">
+      {{#if id}}
+      <h2>Edit Contact</h2>
+      {{else}}
+      <h2>Create Contact</h2>
+      {{/if}}
+      <form name="contact-form" method="post" action="/">
+        <dl>
+          <input type="hidden" name="id" value="{{id}}" />
+          <div class="field">
+            <dt><label for="full_name">Full name:</label></dt>
+            <dd>
+              <input type="text" name="full_name" value="{{full_name}}" required />
+              <small class="alert-info" hidden>Please enter first name and last name.</small>
+            </dd>
+          </div>
+          <div class="field">
+            <dt><label for="email">Email Address:</label></dt>
+            <dd>
+              <input type="email" name="email" value="{{email}}" required />
+              <small class="alert-info" hidden>Please enter a valid email.</small>
+            </dd>
+          </div>
+          <div class="field">
+            <dt><label for="phone_number">Phone number:</label></dt>
+            <dd>
+              <input type="number" name="phone_number" value="{{phone_number}}" required />
+              <small class="alert-info" hidden>Please enter a valid phone number.</small>
+            </dd>
+          </div>
+          <div class="field">
+            <dt><label for="tags">Tags:</label></dt>
+            <dd>
+              <div id="tagging" class="unpad">
+                <textarea type="text" name="tags" placeholder="Enter tags here or select from tag list...">{{tags}}</textarea>
+                <select  class="unpad"name="tagOptions" multiple="multiple">
+                  <option disabled>--- Tag List ---</option>
+                  {{#each allTags}}
+                  {{> tag_option}}
+                  {{/each}}
+                </select>
+              </div>
+            </dd>
+          </div>
+          <div class="field">
+            <dt></dt>
+            <dd>
+              <div>
+                <button class="button" id="submitBtn">Submit</button>
+                <button class="button" id="cancelBtn">Cancel</button>
+              </div>
+            </dd>
+          </div>
+        </dl>
+      </form>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="tag_option" class="partial">
+    <option value="{{this}}">{{this}}</option>
+  </script>
+</body>
+</html>

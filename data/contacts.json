@@ -1,0 +1,23 @@
+[
+  {
+    "full_name": "Sophie C",
+    "phone_number": "1234567890",
+    "email": "email@sophie.com",
+    "tags": "engineering, software",
+    "id": 1
+  },
+  {
+    "full_name": "Chris L",
+    "phone_number": "1234567890",
+    "email": "email@chris.com",
+    "tags": "engineering, education",
+    "id": 2
+  },
+  {
+    "full_name": "Vijay A",
+    "phone_number": "1234567890",
+    "email": "email@vijay.com",
+    "tags": "engineering, mechanical",
+    "id": 3
+  }
+]
